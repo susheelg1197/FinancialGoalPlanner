@@ -20,11 +20,7 @@ def create_app():
         print("Database created.")
 
     # Import and register blueprints
-    from app.api.routes import default_blueprint
-    app.register_blueprint(default_blueprint)
-
-
-    from app.views.example_view import example_blueprint
-    app.register_blueprint(example_blueprint)
+    from app.api.v1 import v1_blueprint as api_v1_blueprint
+    app.register_blueprint(api_v1_blueprint, url_prefix='/api/v1')
 
     return app
