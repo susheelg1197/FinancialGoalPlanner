@@ -69,26 +69,24 @@ export function HomePage({
       <div>
         <CenteredSection>
           <H2>
-            <FormattedMessage {...messages.startProjectHeader} />
+          Take Control of Your Finances
           </H2>
           <p>
-            <FormattedMessage {...messages.startProjectMessage} />
+          Start your journey to financial freedom with Financial Goal Planner! This tool is designed to help you understand where your money goes, set realistic financial goals, and develop a plan to reach them.
           </p>
         </CenteredSection>
         <Section>
           <H2>
-            <FormattedMessage {...messages.trymeHeader} />
+            Start your monthly goal now!
           </H2>
           <Form onSubmit={onSubmitForm}>
             <label htmlFor="username">
-              <FormattedMessage {...messages.trymeMessage} />
-              <AtPrefix>
-                <FormattedMessage {...messages.trymeAtPrefix} />
-              </AtPrefix>
+              Enter your goal here: 
+              
               <Input
                 id="username"
                 type="text"
-                placeholder="mxstbr"
+                placeholder="Ex: Save $300 for an emergency fund"
                 value={username}
                 onChange={onChangeUsername}
               />

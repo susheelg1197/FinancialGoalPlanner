@@ -1,0 +1,65 @@
+/**
+ *
+ * VisualizePage
+ *
+ */
+
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+import BarChart from './BarChart';
+import { useInjectSaga } from 'utils/injectSaga';
+import { useInjectReducer } from 'utils/injectReducer';
+import makeSelectVisualizePage from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+import messages from './messages'; 
+const StyledDiv = styled.div`
+  padding: 20px;
+  background-color: #f4f4f8;
+`;
+export function VisualizePage() {
+  useInjectReducer({ key: 'visualizePage', reducer });
+  useInjectSaga({ key: 'visualizePage', saga });
+
+  return (
+    <StyledDiv>
+      <Helmet>
+        <title>VisualizePage</title>
+        <meta name="description" content="Description of VisualizePage" />
+      </Helmet>
+      <h1> Welcome to Your Spending Dashboard</h1>
+      Gain insights into your financial habits with our interactive Spending Dashboard. Explore your spending patterns, track where your money goes each month, and discover opportunities to save more effectively.
+      <BarChart />
+    </StyledDiv>
+  );
+}
+
+VisualizePage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+  visualizePage: makeSelectVisualizePage(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(VisualizePage);

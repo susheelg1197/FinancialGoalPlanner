@@ -65,7 +65,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
+    "apexcharts": "^3.48.0",
     "chalk": "^2.4.2",
+    "chart.js": "^4.4.2",
     "compression": "1.7.4",
     "connected-react-router": "6.4.0",
     "cross-env": "5.2.0",
@@ -81,6 +83,8 @@
     "minimist": "1.2.0",
     "prop-types": "15.7.2",
     "react": "16.8.6",
+    "react-apexcharts": "^1.4.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "16.8.6",
     "react-helmet": "6.0.0-beta",
     "react-intl": "2.8.0",
