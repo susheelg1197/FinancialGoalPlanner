@@ -8,7 +8,7 @@ import HeaderLink from './HeaderLink';
 import Banner from './banner.jpg';
 import messages from './messages';
 import { Link } from 'react-router-dom';
-
+import './nav.css';
 
 function Header() {
   return (

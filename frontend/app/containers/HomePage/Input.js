@@ -6,6 +6,7 @@ const Input = styled.input`
   border-bottom: 1px dotted #999;
   background-color: transparent;
   width: 400px;
+  color: white;
 `;
 
 export default Input;

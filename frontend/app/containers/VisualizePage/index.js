@@ -12,16 +12,18 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import BarChart from './BarChart';
+import BarChart from './Barchart';
+import RadialBarChart from './RadialBarChart';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectVisualizePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import YearDropdown from './YearDropdown';
+import './visualize.css';
 import messages from './messages'; 
 const StyledDiv = styled.div`
   padding: 20px;
-  background-color: #f4f4f8;
 `;
 export function VisualizePage() {
   useInjectReducer({ key: 'visualizePage', reducer });
@@ -35,7 +37,19 @@ export function VisualizePage() {
       </Helmet>
       <h1> Welcome to Your Spending Dashboard</h1>
       Gain insights into your financial habits with our interactive Spending Dashboard. Explore your spending patterns, track where your money goes each month, and discover opportunities to save more effectively.
-      <BarChart />
+    
+      <div class="row">
+        <div class="column">
+          <h2>Monthly Expenditure</h2>
+          <BarChart />
+
+          <YearDropdown/>
+        </div>
+        <div class="column">
+          <h2>Category Expenditure</h2>
+          <RadialBarChart /> 
+        </div>
+      </div>
     </StyledDiv>
   );
 }

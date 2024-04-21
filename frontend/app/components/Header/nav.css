@@ -1,0 +1,6 @@
+/* Header.css */
+nav {
+    background: rgb(1,0,4);
+    background: radial-gradient(circle, rgba(1,0,4,1) 53%, rgba(15,31,37,1) 88%, rgba(60,41,120,1) 100%, rgba(20,6,69,1) 100%, rgba(41,20,71,1) 100%, rgba(91,76,139,1) 100%, rgba(23,164,193,1) 100%);
+}
+  

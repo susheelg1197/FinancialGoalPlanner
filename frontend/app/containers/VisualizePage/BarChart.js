@@ -26,7 +26,8 @@ function BarChart() {
     },
     title: {
       text: 'Monthly Expenditure',
-      align: 'center'
+      align: 'center',
+
     }
   };
 
