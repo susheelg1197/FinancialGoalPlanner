@@ -10,7 +10,7 @@ const RadialBarChart = () => {
     plotOptions: {
       radialBar: {
         hollow: {
-          size: '70%',
+          size: '50%',
         },
         dataLabels: {
           name: {

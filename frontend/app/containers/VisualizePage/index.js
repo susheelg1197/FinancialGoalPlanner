@@ -20,6 +20,7 @@ import makeSelectVisualizePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import YearDropdown from './YearDropdown';
+import GoalList from './GoalList';
 import './visualize.css';
 import messages from './messages'; 
 const StyledDiv = styled.div`
@@ -40,14 +41,26 @@ export function VisualizePage() {
     
       <div class="row">
         <div class="column">
-          <h2>Monthly Expenditure</h2>
+          <div class="heading">
+            <h2>Yearly Expenditure</h2>
+            <YearDropdown/>
+          </div>
           <BarChart />
-
-          <YearDropdown/>
         </div>
         <div class="column">
-          <h2>Category Expenditure</h2>
+          <h2>Category Expenditure of this month</h2>
           <RadialBarChart /> 
+        </div>
+        <div class="column">
+          <h2>Your Goals for the month</h2>
+           <GoalList/>
+        </div>
+        <div class="column">
+          <div class="heading">
+            <h2>Monthly Expenditure</h2>
+            <YearDropdown/>
+          </div>
+          <BarChart />
         </div>
       </div>
     </StyledDiv>

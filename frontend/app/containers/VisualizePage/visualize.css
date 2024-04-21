@@ -5,9 +5,14 @@
   /* Create two equal columns that floats next to each other */
   .column {
     float: left;
-    width: 50%;
+    width: calc(50% - 20px);
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+    height: 450px; /* Should be removed. Only for demonstration */
+    border: 2px solid #ccc; /* Add a border: style, width, and color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for depth */
+    background-color: #fff; 
+    border-radius: 10px;
+    margin: 10px;
   }
   
   /* Clear floats after the columns */
@@ -15,6 +20,12 @@
     content: "";
     display: table;
     clear: both;
+  }
+
+  .heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   
