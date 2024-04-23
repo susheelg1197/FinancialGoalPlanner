@@ -3,9 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import database_exists, create_database
 from flask_migrate import Migrate
 from config import Config
+from .extensions import db, migrate  # Import from your extensions module
 
-db = SQLAlchemy()
-migrate = Migrate()
+# db = SQLAlchemy()
+# migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
