@@ -51,3 +51,25 @@ def delete_financial_goal(goal_id):
         db.session.commit()
         return jsonify({'message': 'Financial goal deleted'})
     return jsonify({'message': 'Financial goal not found'}), 404
+
+
+@financial_goal_blueprint.route('/financial_goals/summary/<int:user_id>', methods=['GET'])
+def get_financial_goals_summary(user_id):
+    goals = FinancialGoal.query.filter_by(user_id=user_id).all()
+    if not goals:
+        return jsonify({'message': 'No financial goals found for this user'}), 404
+
+    summary_data = []
+    for goal in goals:
+        progress_percentage = (goal.current_amount / goal.target_amount * 100) if goal.target_amount > 0 else 0
+        summary_data.append({
+            'goal_id': goal.id,
+            'name': goal.name,
+            'progress': round(progress_percentage, 2),
+            'target_amount': float(goal.target_amount),
+            'current_amount': float(goal.current_amount),
+            'deadline': goal.deadline.isoformat(),
+            'days_remaining': (goal.deadline - date.today()).days
+        })
+
+    return jsonify(summary_data)
