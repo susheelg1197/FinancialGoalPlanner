@@ -7,10 +7,18 @@
     /* background: rgb(1,0,4);
 background: radial-gradient(circle, rgba(1,0,4,1) 53%, rgba(15,31,37,1) 88%, rgba(60,41,120,1) 100%, rgba(20,6,69,1) 100%, rgba(41,20,71,1) 100%, rgba(91,76,139,1) 100%, rgba(23,164,193,1) 100%); */
     color: white;
+    height: 3000px;
     background: rgb(1,0,4);
 background: radial-gradient(circle, rgba(1,0,4,1) 53%, rgba(15,31,37,1) 84%, rgba(60,41,120,1) 100%, rgba(20,6,69,1) 100%, rgba(41,20,71,1) 100%, rgba(91,76,139,1) 100%, rgba(23,164,193,1) 100%);
   }
-
+  hr {
+    height:1px;
+    width: 500px;
+    border-width:0;
+    background-color:white;
+    margin-bottom: 20px;
+    
+  }
   
   
   .hero-container {
@@ -82,5 +90,36 @@ background: radial-gradient(circle, rgba(1,0,4,1) 53%, rgba(15,31,37,1) 84%, rgb
   
 .sectionBackground {
     background-color: #e2e2e2; /* Slightly darker shade for sections */
+  }
+
+
+  .create {
+    margin-left: 30px;
+  }
+  .create label {
+    text-align: left;
+    display: block;
+  }
+  .create h2 {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .create input, .create textarea, .create select {
+    width: 60%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+    border-radius: 10px;
+  }
+  .create button {
+    background: violet;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
   }
   
