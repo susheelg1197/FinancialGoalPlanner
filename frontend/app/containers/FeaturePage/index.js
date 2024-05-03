@@ -1,17 +1,11 @@
-/*
- * FeaturePage
- *
- * List all the features
- */
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import H1 from 'components/H1';
-import messages from './messages';
 import List from './List';
 import ListItem from './ListItem';
 import ListItemTitle from './ListItemTitle';
+
 
 const StyledDiv = styled.div`
   padding: 20px;
@@ -19,23 +13,54 @@ const StyledDiv = styled.div`
 `;
 
 export default function FeaturePage() {
+  const [query, setQuery] = useState('');
+  const [response, setResponse] = useState('');
+
+  const handleQueryChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      model: "gpt-3.5-turbo",  // Use the appropriate model name like "gpt-3.5-turbo" if available
+  messages: [
+    {
+      role: "user",
+      content: query
+    }
+  ],
+  max_tokens: 60
+    };
+
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer <your_key>`
+        },
+        body: JSON.stringify(data)
+      });
+      const responseData = await response.json();
+      setResponse(responseData.choices[0].message.content);
+      setQuery(''); 
+    } catch (error) {
+      console.error('Error fetching from OpenAI:', error);
+      setResponse('Failed to fetch response from OpenAI.');
+    }
+  };
+
   return (
     <StyledDiv>
       <Helmet>
         <title>Feature Page</title>
-        <meta
-          name="description"
-          content="Feature page of React.js Boilerplate application"
-        />
+        <meta name="description" content="Feature page of React.js Boilerplate application" />
       </Helmet>
-      <H1>
-        Help Center
-      </H1>
-      <p>
-      Welcome to the Help Center of Financial Goal Planner! Here, you will find all the resources needed to navigate and maximize the benefits of our app. Whether you're setting your first financial goal or looking to better manage your finances, our detailed guides and tips are here to assist you every step of the way.
-     </p>
+      <H1>Help Center</H1>
+      <p>Welcome to the Help Center of Financial Goal Planner! Here, you will find all the resources needed to navigate and maximize the benefits of our app.</p>
       <List>
-        <ListItem>
+      <ListItem>
           <ListItemTitle>
           Smart Saving Tips
           </ListItemTitle>
@@ -62,6 +87,16 @@ export default function FeaturePage() {
           </p>
         </ListItem>
       </List>
-      </StyledDiv>
+      <h1>Ask Anything</h1>
+      <p>powered by GPT-3.5</p>
+      <div>Enter a topic and the AI will answer your questions</div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input type="text" value={query} onChange={handleQueryChange} name="query" placeholder="Ask a question" />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      {response && <div><strong>AI Response:</strong> {response}</div>}
+    </StyledDiv>
   );
 }
