@@ -47,23 +47,26 @@ export function HomePage({
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-
-  useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
-  }, []);
-
-  const reposListProps = {
-    loading,
-    error,
-    repos,
-  };
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
-  const [body, setBody] = useState('');
-  const [author, setAuthor] = useState('mario');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('inprogress');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [expenseAmount, setExpenseAmount] = useState('');
+  const [category, setCategory] = useState('travel')
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submit action
+    console.log(`Expense Amount: ${expenseAmount}, Category: ${category}`);
+    // Add here any logic to process or store the expense data
+};
+
+const handleSubmitgoal = (e) => {
+  e.preventDefault(); // Prevent the default form submit action
+  console.log(`Name: ${name}, Description: ${description}, Status: ${status}, Start Date: ${startDate}, End Date:${endDate} `);
+  // Add here any logic to process or store the expense data
+};
 
   return (
     <article className="homePageBackground">
@@ -100,19 +103,19 @@ export function HomePage({
        
         <div className="create">
       <h2>Add a New Goal</h2>
-      <form>
+      <form onSubmit={handleSubmitgoal}>
         <label>Goal Name:</label>
         <input 
           type="text" 
           required 
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <label>Description:</label>
         <textarea
           required
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         ></textarea>
         <label>Target Amount:</label>
         <input 
@@ -123,19 +126,19 @@ export function HomePage({
         />
         <label>Category:</label>
         <select
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="inprogress">Savings</option>
-          <option value="inprogress">Healthcare</option>
-          <option value="done">Retirement</option>
-          <option value="done">Travel</option>
-          <option value="done">Emergency</option>
+          <option value="savings">Savings</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="retirement">Retirement</option>
+          <option value="travel">Travel</option>
+          <option value="emergency">Emergency</option>
         </select>
         <label>Status:</label>
         <select
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
         >
           <option value="inprogress">In-progress</option>
           <option value="done">Done</option>
@@ -151,8 +154,8 @@ export function HomePage({
           
           <input
             type="date"
-            value={startDate}
-            onChange={e => setStartDate(e.target.value)}
+            value={endDate}
+            onChange={e => setEndDate(e.target.value)}
           />
         
         <button>Add Goal</button>
@@ -160,17 +163,17 @@ export function HomePage({
       <br></br>
       <hr></hr>
       <h2>Add a New Expense</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Expense Amount:</label>
         <input 
           type="text" 
           required 
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={expenseAmount}
+          onChange={(e) => setExpenseAmount(e.target.value)}
         />
         <label>Category:</label>
         <select
-          value={author}
+          value={category}
           onChange={(e) => setAuthor(e.target.value)}
         >
           <option value="travel">Travel</option>
@@ -180,7 +183,7 @@ export function HomePage({
           <option value="groceries">Groceries</option>
           <option value="tuition">Tuition Fee</option>
         </select>
-        <button>Add Expense</button>
+        <button type="submit">Add Expense</button>
       </form>
     </div>
       </div>
