@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import './HomePage.css'; 
+import { useState } from "react";
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -57,6 +58,12 @@ export function HomePage({
     error,
     repos,
   };
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState('');
+  const [body, setBody] = useState('');
+  const [author, setAuthor] = useState('mario');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   return (
     <article className="homePageBackground">
@@ -69,26 +76,17 @@ export function HomePage({
       </Helmet>
       <section class="hero">
       <div class="hero-container">
+        <div>
         <div class="column-left">
           <h1>Take Control of Your Finances</h1>
           <h4>
           Start your journey to financial freedom with Financial Goal Planner! This tool is designed to help you understand where your money goes, set realistic financial goals, and develop a plan to reach them.
           </h4>
           <p></p>
-          <h4> Enter your goal here:</h4>
-          <Form onSubmit={onSubmitForm}>
-            <label htmlFor="username">
-              <Input
-                id="username"
-                type="text"
-                color='white'
-                placeholder="Ex: Save $300 for an emergency fund"
-                value={username}
-                onChange={onChangeUsername}
-              />
-            </label>
-          </Form>
-          <button>Set Goal</button>
+          <h4> </h4>
+          
+        
+          
         </div>
         <div class="column-right">
           <img
@@ -98,6 +96,93 @@ export function HomePage({
             style={{ width: '300px', height: '300px' , borderRadius: '300px' }}
           />
         </div>
+        </div>
+       
+        <div className="create">
+      <h2>Add a New Goal</h2>
+      <form>
+        <label>Goal Name:</label>
+        <input 
+          type="text" 
+          required 
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>Description:</label>
+        <textarea
+          required
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+        ></textarea>
+        <label>Target Amount:</label>
+        <input 
+          type="text" 
+          required 
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <label>Category:</label>
+        <select
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        >
+          <option value="inprogress">Savings</option>
+          <option value="inprogress">Healthcare</option>
+          <option value="done">Retirement</option>
+          <option value="done">Travel</option>
+          <option value="done">Emergency</option>
+        </select>
+        <label>Status:</label>
+        <select
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        >
+          <option value="inprogress">In-progress</option>
+          <option value="done">Done</option>
+        </select>
+        <label>Start Date:</label>
+          
+          <input
+            type="date"
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+          />
+          <label>End Date:</label>
+          
+          <input
+            type="date"
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+          />
+        
+        <button>Add Goal</button>
+      </form>
+      <br></br>
+      <hr></hr>
+      <h2>Add a New Expense</h2>
+      <form>
+        <label>Expense Amount:</label>
+        <input 
+          type="text" 
+          required 
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>Category:</label>
+        <select
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        >
+          <option value="travel">Travel</option>
+          <option value="food">Food</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="rent">Rent</option>
+          <option value="groceries">Groceries</option>
+          <option value="tuition">Tuition Fee</option>
+        </select>
+        <button>Add Expense</button>
+      </form>
+    </div>
       </div>
     </section>
     </article>
