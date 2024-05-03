@@ -19,7 +19,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 
 nav {
   height: 80px;
-  background: #fdcc04;
+  background: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +27,7 @@ nav {
 }
 
 .logo {
-  color: #000;
+  color: white;
   font-size: 1.5rem;
   font-weight: bold;
   font-style: italic;
@@ -36,7 +36,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #000;
+  color: white;
   padding: 0 1.5rem;
 }
 
@@ -113,62 +113,10 @@ button:hover {
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script type="text/javascript">
       // Assuming the Bar chart component is available as Bar
-      const { Bar } = ReactChartjs2;
-    
-      const chartData = {
-        labels: ['January', 'February', 'March', 'April', 'May'],
-        datasets: [{
-          label: 'Monthly Sales',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
-          data: [65, 59, 80, 81, 56]
-        }]
-      };
-    
-      const chartOptions = {
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      };
-    
-      ReactDOM.render(
-        <Bar data={chartData} options={chartOptions} />,
-        document.getElementById('react-root')
-      );
+      
     </script>
   </head>
   <body>
-    <nav>
-      <div class="logo">Finanacial Goal Planner</div>
-      <div class="nav-items">
-        <a href="/">Home</a> <a href="/">Visualise Spendings</a> <a href="/">Help</a>
-      </div>
-    </nav>
-    <section class="hero">
-      <div class="hero-container">
-        <div class="column-left">
-          <h1>Enter your Financial goal for the month here:</h1>
-          
-          <button>Lets Go!</button>
-        </div>
-        <div class="column-right">
-          <img
-            src="./image-1.svg"
-            alt="illustration
-        "
-            class="hero-image"
-          />
-        </div>
-      </div>
-    </section>
-    <div id="react-root"></div> 
+    <div id="app"></div>
   </body>
 </html>

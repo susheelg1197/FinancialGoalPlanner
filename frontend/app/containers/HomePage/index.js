@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
+import './HomePage.css'; 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -21,6 +21,7 @@ import {
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
+import Button from '../../components/Button';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -32,7 +33,7 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import moneyImage from './money1.png';
 const key = 'home';
 
 export function HomePage({
@@ -58,7 +59,7 @@ export function HomePage({
   };
 
   return (
-    <article>
+    <article className="homePageBackground">
       <Helmet>
         <title>Home Page</title>
         <meta
@@ -66,37 +67,39 @@ export function HomePage({
           content="A React.js Boilerplate application homepage"
         />
       </Helmet>
-      <div>
-        <CenteredSection>
-          <H2>
-            <FormattedMessage {...messages.startProjectHeader} />
-          </H2>
-          <p>
-            <FormattedMessage {...messages.startProjectMessage} />
-          </p>
-        </CenteredSection>
-        <Section>
-          <H2>
-            <FormattedMessage {...messages.trymeHeader} />
-          </H2>
+      <section class="hero">
+      <div class="hero-container">
+        <div class="column-left">
+          <h1>Take Control of Your Finances</h1>
+          <h4>
+          Start your journey to financial freedom with Financial Goal Planner! This tool is designed to help you understand where your money goes, set realistic financial goals, and develop a plan to reach them.
+          </h4>
+          <p></p>
+          <h4> Enter your goal here:</h4>
           <Form onSubmit={onSubmitForm}>
             <label htmlFor="username">
-              <FormattedMessage {...messages.trymeMessage} />
-              <AtPrefix>
-                <FormattedMessage {...messages.trymeAtPrefix} />
-              </AtPrefix>
               <Input
                 id="username"
                 type="text"
-                placeholder="mxstbr"
+                color='white'
+                placeholder="Ex: Save $300 for an emergency fund"
                 value={username}
                 onChange={onChangeUsername}
               />
             </label>
           </Form>
-          <ReposList {...reposListProps} />
-        </Section>
+          <button>Set Goal</button>
+        </div>
+        <div class="column-right">
+          <img
+            src={moneyImage}
+            alt="illustration"
+            class="hero-image"
+            style={{ width: '300px', height: '300px' , borderRadius: '300px' }}
+          />
+        </div>
       </div>
+    </section>
     </article>
   );
 }
