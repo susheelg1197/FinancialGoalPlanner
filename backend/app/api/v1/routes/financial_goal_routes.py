@@ -143,7 +143,7 @@ def search_financial_goals():
         query = query.filter(FinancialGoal.status == status)
 
     if name:
-        query = query.filter(FinancialGoal.name.ilike(f'%{name}%'))  # Case-insensitive partial match
+        query = query.filter(FinancialGoal.name.ilike(f'%{name}%'))  
 
     # Execute query
     results = query.all()
