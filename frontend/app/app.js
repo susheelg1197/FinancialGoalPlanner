@@ -31,6 +31,8 @@ import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
+import { AuthProvider } from './contexts/AuthContext'; 
+
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)
@@ -51,7 +53,9 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
+        <AuthProvider>
           <App />
+          </AuthProvider>
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,

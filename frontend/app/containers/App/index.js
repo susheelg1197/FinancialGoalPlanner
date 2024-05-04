@@ -9,7 +9,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
@@ -18,6 +18,13 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import GlobalStyle from '../../global-styles';
 import VisualizePage from '../VisualizePage';
+import UserRegister from 'containers/UserRegister';
+import UserLogin from 'containers/UserLogin';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../contexts/AuthContext';
+import { PrivateRoute, PublicRoute } from '../../components/CustomRoutes';  
+
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -27,8 +34,11 @@ const AppWrapper = styled.div`
 `;
 
 export default function App() {
+  const { authToken } = React.useContext(AuthContext);
+
   return (
     <AppWrapper>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <Helmet
         titleTemplate="%s - React.js Boilerplate"
         defaultTitle="React.js Boilerplate"
@@ -37,12 +47,18 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="/visualization" component={VisualizePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      
+      <Route exact path="/">
+        <Redirect to="/home" />
+      </Route>
+      <PublicRoute exact path="/login" component={UserLogin} />
+      <PublicRoute exact path="/register" component={UserRegister} />
+      <PrivateRoute exact path="/home" component={HomePage} />
+      <PrivateRoute exact path="/visualization" component={VisualizePage} />
+      <PrivateRoute exact path="/features" component={FeaturePage} />
+      <Route path="" component={NotFoundPage} />
+    </Switch>
+
+
       <GlobalStyle />
     </AppWrapper>
   );
