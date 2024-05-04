@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
-const RadialBarChart = () => {
+const RadialBarChart = ({ series, labels }) => {
   const options = {
     chart: {
       height: 350,
@@ -19,19 +19,22 @@ const RadialBarChart = () => {
           value: {
             fontSize: '16px',
             show: true,
+            formatter: function (val) {
+              return `$${val.toLocaleString()}`; // Format as dollar amount
+            }
           },
           total: {
             show: true,
             label: 'Total',
             formatter: function (w) {
-              // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-              return 249
+              const total = w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+              return `$${total.toLocaleString()}`; // Sum and format as dollar amount
             }
           }
         }
       }
     },
-    labels: ['Cricket', 'Football', 'Basketball', 'Hockey'],
+    labels: labels,
     colors: ['#20E647', '#FF4560', '#775DD0', '#00E396'],
     stroke: {
       lineCap: 'round'
@@ -48,8 +51,6 @@ const RadialBarChart = () => {
       }
     }
   };
-
-  const series = [70, 55, 45, 60]; // This represents the percentage completion for each sport
 
   return (
     <div>

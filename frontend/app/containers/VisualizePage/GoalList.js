@@ -1,80 +1,55 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import './Goal.css'
-// TodaysDate Component
-const TodaysDate = () => {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    return `${mm}-${dd}-${yyyy}`;
-};
+import React, { useState, useEffect } from 'react';
+import { getUserGoals } from '../../utils/api';
+import './Goal.css';
 
-// ListItem Component
-const ListItem = ({ item, onChange }) => {
-    const [index, content, status] = item;
-    const buttonContent = status ? (
-        <button onClick={() => onChange(index)} className="done">♥ FIN</button>
-    ) : (
-        <button onClick={() => onChange(index)}>WIP</button>
-    );
-
-    const styling = status ? "done" : "";
-    const displayContent = status ? <span className="complete">{content}</span> : content;
-
-    return (
-        <div>
-            <li className={styling}>{displayContent}{buttonContent}</li>
-        </div>
-    );
-};
-
-// ToDo Component
-const ToDo = ({ items, onChange }) => {
-    return (
-        <div className="todoList">
-            <ul>
-                {items.map(item => (
-                    <ListItem key={item[0]} item={item} onChange={onChange} />
-                ))}
-            </ul>
-        </div>
-    );
-};
-
-// App Component
 const GoalList = () => {
-    const [inputValue, setInputValue] = useState("");
-    const [items, setItems] = useState([
-        [0, "Understand React Lifecycle Methods"],
-        [1, "Finish reading You Don't Know JS"]
-    ]);
-    const [index, setIndex] = useState(2);
+    const [goals, setGoals] = useState([]);
 
-    const updateInputValue = (event) => {
-        setInputValue(event.target.value);
-    };
+    useEffect(() => {
+        const fetchGoals = async () => {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                console.log('Authentication token not found.');
+                return;
+            }
+            try {
+                const fetchedGoals = await getUserGoals(token);
+                setGoals(fetchedGoals.map(goal => ({ ...goal, isComplete: !!goal.isComplete })));
+            } catch (error) {
+                console.error('Failed to fetch goals:', error);
+            }
+        };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const newItems = [...items, [index, inputValue, false]];
-        setItems(newItems);
-        setIndex(index + 1);
-        setInputValue("");
-    };
+        fetchGoals();
+    }, []);
 
-    const onChange = (index) => {
-        const newItems = items.map(item => 
-            item[0] === index ? [item[0], item[1], !item[2]] : item
-        );
-        setItems(newItems);
+    const toggleGoalStatus = async (id) => {
+        setGoals(goals.map(goal => {
+            if (goal.id === id) {
+                return { ...goal, isComplete: !goal.isComplete };
+            }
+            return goal;
+        }));
+
+        // Optionally, send this change back to your server here
     };
 
     return (
         <div className="container">
-            {/* <h1><TodaysDate /></h1> */}
-            <ToDo items={items} onChange={onChange} />
+            <ul>
+                {goals.map(goal => (
+                    <li key={goal.id} className={`goal-item ${goal.isComplete ? 'completed' : ''}`}>
+                        <span className="goal-content">
+                            {goal.name} - {goal.description} 
+                        </span>
+                        <button className="goal-toggle" onClick={() => toggleGoalStatus(goal.id)}>
+                            {goal.isComplete ? 'Undo' : 'Mark as Complete'}
+                        </button>
+                    </li>
+                ))}
+            </ul>
         </div>
+
     );
 };
 
