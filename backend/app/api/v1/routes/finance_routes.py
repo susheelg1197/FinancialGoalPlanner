@@ -88,3 +88,13 @@ def search_finances():
     # Execute query
     results = query.all()
     return jsonify([finance.to_dict() for finance in results]), 200
+
+@finance_blueprint.route('/finances/by_user', methods=['GET'])
+@jwt_required()
+def get_user_finances():
+    user_id = get_user_id_from_token()
+    if not user_id:
+        return jsonify({'error': 'User not authenticated'}), 401
+    
+    goals = Finance.query.filter_by(created_by=user_id).all()
+    return jsonify([goal.to_dict() for goal in goals]), 200

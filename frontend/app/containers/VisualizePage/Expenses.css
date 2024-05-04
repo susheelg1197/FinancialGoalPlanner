@@ -1,0 +1,35 @@
+.expense-title, .finance-title {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.expense-amount, .finance-amount {
+  margin-right: 10px;
+}
+
+.badge {
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.container {
+  width: 100%;
+  /* margin: 20px auto; */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #f4f4f4;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

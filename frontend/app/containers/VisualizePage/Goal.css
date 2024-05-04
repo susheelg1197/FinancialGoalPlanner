@@ -44,3 +44,43 @@ ul {
   
 }
 
+
+.container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.goal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.goal-content {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 80%; /* Adjust based on your layout preferences */
+}
+
+.goal-toggle {
+  padding: 5px 10px;
+  background-color: #4CAF50; /* Green background for better UX */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.goal-toggle:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.completed {
+  /* text-decoration: line-through; */
+  color: #888; /* Gray out completed items for visual feedback */
+}

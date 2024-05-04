@@ -23,12 +23,27 @@ import YearDropdown from './YearDropdown';
 import GoalList from './GoalList';
 import './visualize.css';
 import messages from './messages'; 
+import ExpensesList from './ExpensesList';
+import FinancesList from './FinancesList';
+import YearlyExpenseChart from './YearlyExpenseChart';
+import ExpensesSpiral from './ExpensesSpiral';
+import YearlyFinancesChart from './YearlyFinancesChart';
+import CombinationChart from './CombinationChart';
+import FinancialGoalChart from './FinancialGoalChart';
+import FinancialGoalParent from './FinancialGoalParent';
 const StyledDiv = styled.div`
   padding: 20px;
 `;
 export function VisualizePage() {
   useInjectReducer({ key: 'visualizePage', reducer });
   useInjectSaga({ key: 'visualizePage', saga });
+
+  // const expenses = [1200, 1100, 1250, 1000, 1050, 950, 1150, 1200, 1100, 1300, 900, 950];
+  // const savings = [1500, 1600, 1550, 1600, 1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000];
+
+  // // Sample target amount for the year
+  // const targetAmount = 24000; // This implies a goal to reach $24,000 in savings for the year
+
 
   return (
     <StyledDiv>
@@ -45,23 +60,42 @@ export function VisualizePage() {
             <h2>Yearly Expenditure</h2>
             <YearDropdown/>
           </div>
-          <BarChart />
+          <YearlyExpenseChart />
+        </div>
+        <div class="column">
+          <div class="heading">
+            <h2>Yearly Finances</h2>
+            <YearDropdown/>
+          </div>
+          <YearlyFinancesChart />
         </div>
         <div class="column">
           <h2>Category Expenditure of this month</h2>
-          <RadialBarChart /> 
+          <ExpensesSpiral /> 
         </div>
         <div class="column">
-          <h2>Your Goals for the month</h2>
+          <h2>My Goals</h2>
            <GoalList/>
         </div>
         <div class="column">
+          <h2>My Expenses</h2>
+           <ExpensesList/>
+        </div>
+        <div class="column">
+          <h2>My Finances</h2>
+           <FinancesList/>
+        </div>
+        <div class="column">
+          <h2>Monthly Expense vs Savings Chart</h2>
+          <FinancialGoalParent/>
+        </div>
+        {/* <div class="column">
           <div class="heading">
             <h2>Monthly Expenditure</h2>
             <YearDropdown/>
           </div>
           <BarChart />
-        </div>
+        </div> */}
       </div>
     </StyledDiv>
   );
