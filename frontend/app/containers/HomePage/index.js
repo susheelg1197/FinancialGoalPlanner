@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -35,6 +35,8 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import moneyImage from './money1.png';
+import {jwtDecode} from 'jwt-decode'; 
+
 const key = 'home';
 
 export function HomePage({
@@ -68,6 +70,22 @@ const handleSubmitgoal = (e) => {
   // Add here any logic to process or store the expense data
 };
 
+  const [userDisplayName, setUserDisplayName] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token); // Correct usage
+        console.log("decorded toike:: ", decodedToken)
+        setUserDisplayName(decodedToken.sub.username); // Assuming 'username' is the field name in the payload
+      } catch (error) {
+        console.error("Token decoding failed:", error);
+      }
+    }
+  }, []);
+
+
   return (
     <article className="homePageBackground">
       <Helmet>
@@ -81,7 +99,7 @@ const handleSubmitgoal = (e) => {
       <div class="hero-container">
         <div>
         <div class="column-left">
-          <h1>Take Control of Your Finances</h1>
+          <h1>Hi, {userDisplayName}! <br></br> Take Control of Your Finances</h1>
           <h4>
           Start your journey to financial freedom with Financial Goal Planner! This tool is designed to help you understand where your money goes, set realistic financial goals, and develop a plan to reach them.
           </h4>
