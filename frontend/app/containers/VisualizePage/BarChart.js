@@ -25,7 +25,7 @@ function BarChart() {
       colors: ['transparent']
     },
     title: {
-      text: 'Monthly Expenditure',
+      text: 'Yearly Expenditure',
       align: 'center',
 
     }

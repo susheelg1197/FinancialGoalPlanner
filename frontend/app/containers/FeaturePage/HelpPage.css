@@ -1,13 +1,32 @@
 
-.form {	
-	&__field {
-		width: 360px;
-		background: #fff;
-		color: #a3a3a3;
-		font: inherit;
-		box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
-		border: 0;
-		outline: 0;
-		padding: 22px 18px;
-	}
-}
+.create {
+    
+  }
+  .ai label {
+    text-align: left;
+    display: block;
+  }
+  .ai h2 {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .ai input, .ai textarea, .ai select {
+    width: 60%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+    border-radius: 10px;
+  }
+  .ai button {
+    background: black;
+    color: #fff;
+    width: 120px;
+    height: 40px;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }

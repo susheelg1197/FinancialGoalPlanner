@@ -49,6 +49,7 @@ export function HomePage({
   useInjectSaga({ key, saga });
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
+  const [currentamount, setCurrentAmount] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('inprogress');
   const [startDate, setStartDate] = useState('');
@@ -60,13 +61,57 @@ export function HomePage({
     e.preventDefault(); // Prevent the default form submit action
     console.log(`Expense Amount: ${expenseAmount}, Category: ${category}`);
     // Add here any logic to process or store the expense data
+    setExpenseAmount('');
+    setCategory('');
 };
 
-const handleSubmitgoal = (e) => {
+const handleSubmitgoal = async (e) => {
   e.preventDefault(); // Prevent the default form submit action
-  console.log(`Name: ${name}, Description: ${description}, Status: ${status}, Start Date: ${startDate}, End Date:${endDate} `);
-  // Add here any logic to process or store the expense data
+
+  const goalData = {
+    category: category,
+    currentAmount: currentamount,
+    description: description,
+    endDate: endDate,
+    name: name,
+    startDate: startDate,
+    targetAmount: amount
+  };
+
+  try {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNDc5Nzg0MCwianRpIjoiNDdhZGVlNzktZGFhYi00MTY4LWJkOTgtMDA3NThmNTFjZmJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJ1c2VybmFtZSI6InNocmV5YSIsInVzZXJJZCI6MX0sIm5iZiI6MTcxNDc5Nzg0MCwiY3NyZiI6IjhlMjU0ODExLTc1N2MtNDU5OS05ZmEwLTZjNDdjN2FjNWJlOCIsImV4cCI6MTcxNDc5ODc0MH0.f9E_lKFejPeNlM0A6SfldMOYy52u-LOS_d1n20yhI7I";
+    const response = await fetch('http://localhost:8000/api/v1/financial_goals', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(goalData)
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+
+    const data = await response.json();
+    console.log('Goal created:', data);
+    
+    // Add any logic to update UI or handle success here
+
+    // Reset form fields
+    setName('');
+    setDescription('');
+    setAmount('');
+    setCategory('savings');
+    setStatus('inprogress');
+    setStartDate('');
+    setEndDate('');
+  } catch (error) {
+    console.error('Error creating goal:', error);
+    // Add logic to handle error and show user feedback if needed
+  }
 };
+
 
   return (
     <article className="homePageBackground">
@@ -124,6 +169,13 @@ const handleSubmitgoal = (e) => {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
+        <label>Current Amount:</label>
+        <input 
+          type="text" 
+          required 
+          value={currentamount}
+          onChange={(e) => setCurrentAmount(e.target.value)}
+        />
         <label>Category:</label>
         <select
           value={category}
@@ -135,14 +187,7 @@ const handleSubmitgoal = (e) => {
           <option value="travel">Travel</option>
           <option value="emergency">Emergency</option>
         </select>
-        <label>Status:</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        >
-          <option value="inprogress">In-progress</option>
-          <option value="done">Done</option>
-        </select>
+        
         <label>Start Date:</label>
           
           <input

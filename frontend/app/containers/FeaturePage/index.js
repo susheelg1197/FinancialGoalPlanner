@@ -5,6 +5,7 @@ import H1 from 'components/H1';
 import List from './List';
 import ListItem from './ListItem';
 import ListItemTitle from './ListItemTitle';
+import './HelpPage.css'
 
 
 const StyledDiv = styled.div`
@@ -14,6 +15,7 @@ const StyledDiv = styled.div`
 
 export default function FeaturePage() {
   const [query, setQuery] = useState('');
+  const [name, setName] = useState('');
   const [response, setResponse] = useState('');
 
   const handleQueryChange = (event) => {
@@ -38,7 +40,7 @@ export default function FeaturePage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer <your_key>`
+          'Authorization': `Bearer <ypur_key>`
         },
         body: JSON.stringify(data)
       });
@@ -89,13 +91,22 @@ export default function FeaturePage() {
       </List>
       <h1>Ask Anything</h1>
       <p>powered by GPT-3.5</p>
-      <div>Enter a topic and the AI will answer your questions</div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <label>
           <input type="text" value={query} onChange={handleQueryChange} name="query" placeholder="Ask a question" />
         </label>
         <input type="submit" value="Submit" />
-      </form>
+      </form> */}
+      <div className="ai">
+      <form onSubmit={handleSubmit}>
+        <label>Enter a topic and the AI will answer your questions</label>
+        <input 
+        type="text" value={query} onChange={handleQueryChange} name="query" placeholder="Ask a question" 
+          required 
+        />
+        <button type="submit">Ask AI</button>
+        </form>
+        </div>
       {response && <div><strong>AI Response:</strong> {response}</div>}
     </StyledDiv>
   );
