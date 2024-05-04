@@ -11,8 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import './HomePage.css'; 
-import { useState } from "react";
+import './HomePage.css';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -35,7 +34,7 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import moneyImage from './money1.png';
-import {jwtDecode} from 'jwt-decode'; 
+import { jwtDecode } from 'jwt-decode';
 
 const key = 'home';
 
@@ -46,6 +45,7 @@ export function HomePage({
   repos,
   onSubmitForm,
   onChangeUsername,
+  history
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -62,13 +62,13 @@ export function HomePage({
     e.preventDefault(); // Prevent the default form submit action
     console.log(`Expense Amount: ${expenseAmount}, Category: ${category}`);
     // Add here any logic to process or store the expense data
-};
+  };
 
-const handleSubmitgoal = (e) => {
-  e.preventDefault(); // Prevent the default form submit action
-  console.log(`Name: ${name}, Description: ${description}, Status: ${status}, Start Date: ${startDate}, End Date:${endDate} `);
-  // Add here any logic to process or store the expense data
-};
+  const handleSubmitgoal = (e) => {
+    e.preventDefault(); // Prevent the default form submit action
+    console.log(`Name: ${name}, Description: ${description}, Status: ${status}, Start Date: ${startDate}, End Date:${endDate} `);
+    // Add here any logic to process or store the expense data
+  };
 
   const [userDisplayName, setUserDisplayName] = useState('');
 
@@ -85,6 +85,9 @@ const handleSubmitgoal = (e) => {
     }
   }, []);
 
+  const navigateTo = (path) => {
+    history.push(path);
+  };
 
   return (
     <article className="homePageBackground">
@@ -96,31 +99,40 @@ const handleSubmitgoal = (e) => {
         />
       </Helmet>
       <section class="hero">
-      <div class="hero-container">
-        <div>
-        <div class="column-left">
-          <h1>Hi, {userDisplayName}! <br></br> Take Control of Your Finances</h1>
-          <h4>
-          Start your journey to financial freedom with Financial Goal Planner! This tool is designed to help you understand where your money goes, set realistic financial goals, and develop a plan to reach them.
-          </h4>
-          <p></p>
-          <h4> </h4>
+        <div class="hero-container">
           
-        
+            <div class="column-left">
+              <h1>Hi, {userDisplayName}! <br></br> Take Control of Your Finances</h1>
+              <h4>
+                Start your journey to financial freedom with Financial Goal Planner! This tool is designed to help you understand where your money goes, set realistic financial goals, and develop a plan to reach them.
+              </h4>
+              <p></p>
+              <h4> </h4>
+
+
+
+            </div>
+            <div class="column-right">
+
+              <img
+                src={moneyImage}
+                alt="illustration"
+                class="hero-image"
+                style={{ width: '300px', height: '300px', borderRadius: '300px' }}
+              />
+            </div>
+    
+            <div className="button-container">
+            <button className="round-button" onClick={() => navigateTo('/create-goal')}>Set Goals</button>
+            <button className="round-button" onClick={() => navigateTo('/add-expense')}>Add Expenses</button>
+            <button className="round-button" onClick={() => navigateTo('/add-finance')}>Add Finances</button>
+            </div>
           
-        </div>
-        <div class="column-right">
-          <img
-            src={moneyImage}
-            alt="illustration"
-            class="hero-image"
-            style={{ width: '300px', height: '300px' , borderRadius: '300px' }}
-          />
-        </div>
-        </div>
-       
-        <div className="create">
-      <h2>Add a New Goal</h2>
+
+          
+
+          
+          {/* <h2>Add a New Goal</h2>
       <form onSubmit={handleSubmitgoal}>
         <label>Goal Name:</label>
         <input 
@@ -203,9 +215,9 @@ const handleSubmitgoal = (e) => {
         </select>
         <button type="submit">Add Expense</button>
       </form>
-    </div>
-      </div>
-    </section>
+    </div> */}
+        </div>
+      </section>
     </article>
   );
 }

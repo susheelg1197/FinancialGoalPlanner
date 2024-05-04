@@ -36,3 +36,48 @@ export const loginUser = async (username, password) => {
     throw error;
   }
 };
+
+export const createFinancialGoal = async (goalData, token) => {
+    try {
+      const response = await axios.post(`${API_URL}/financial_goals`, goalData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`  
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Create Goal Error:', error.response.data);
+      throw error;
+    }
+  };
+  
+  export const createExpense = async (expenseData, token) => {
+    try {
+      const response = await axios.post(`${API_URL}/expenses`, expenseData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`  
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Create Expense Error:', error.response.data);
+      throw error;
+    }
+  };
+  
+  export const createFinance = async (financeData, token) => {
+    try {
+      const response = await axios.post(`${API_URL}/finances`, financeData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`  
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Create Fiannce Error:', error.response.data);
+      throw error;
+    }
+  };

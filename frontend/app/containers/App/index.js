@@ -20,6 +20,9 @@ import GlobalStyle from '../../global-styles';
 import VisualizePage from '../VisualizePage';
 import UserRegister from 'containers/UserRegister';
 import UserLogin from 'containers/UserLogin';
+import CreateGoalPage from '../CreateGoal';
+import CreateExpensePage from '../CreateExpense';
+import CreateFinancePage from '../CreateFinance';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -55,6 +58,9 @@ export default function App() {
       <PrivateRoute exact path="/home" component={HomePage} />
       <PrivateRoute exact path="/visualization" component={VisualizePage} />
       <PrivateRoute exact path="/features" component={FeaturePage} />
+      <PrivateRoute path="/create-goal" component={CreateGoalPage} />
+      <PrivateRoute path="/add-expense" component={CreateExpensePage} />
+      <PrivateRoute path="/add-finance" component={CreateFinancePage} />
       <Route path="" component={NotFoundPage} />
     </Switch>
 

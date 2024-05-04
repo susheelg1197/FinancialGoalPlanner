@@ -5,6 +5,8 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import create_access_token
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import timedelta
+
 
 user_blueprint = Blueprint('user_api', __name__)
 
@@ -98,7 +100,7 @@ def login_user():
     user = User.query.filter_by(username=username).first()
     if user and check_password_hash(user.password_hash, password):
         user_info = {"username": user.username, "userId": user.id}
-        access_token = create_access_token(identity=user_info)
+        access_token = create_access_token(identity=user_info, expires_delta=timedelta(hours=24))
         return jsonify(access_token=access_token), 200
     else:
         return jsonify({'error': 'Invalid username or password'}), 401
