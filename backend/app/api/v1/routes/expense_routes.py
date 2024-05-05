@@ -4,6 +4,8 @@ from app.extensions import db
 from app.models.expense import Expense
 from app.utils.utils import get_user_id_from_token  
 from datetime import datetime, date
+from sqlalchemy import extract
+
 
 
 expense_blueprint = Blueprint('expenses', __name__)
@@ -106,3 +108,19 @@ def search_expenses():
     # Execute query
     results = query.all()
     return jsonify([expense.to_dict() for expense in results]), 200
+
+@expense_blueprint.route('/expenses/year/<int:year>', methods=['GET'])
+@jwt_required()
+def get_expenses_by_year(year):
+    user_id = get_user_id_from_token()
+    if not user_id:
+        return jsonify({'error': 'User not authenticated'}), 401 
+    expenses = Expense.query.filter(
+        Expense.created_by == user_id,
+        extract('year', Expense.created_on) == year
+    ).all()
+
+    if expenses:
+        return jsonify([expense.to_dict() for expense in expenses])
+    else:
+        return jsonify({'message': 'No expenses found for this year'}), 404
