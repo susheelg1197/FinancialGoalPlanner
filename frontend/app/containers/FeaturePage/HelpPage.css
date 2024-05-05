@@ -11,3 +11,55 @@
 		padding: 22px 18px;
 	}
 }
+
+input[type="text"] {
+	width: calc(100% - 50px); /* Adjust width to leave space for the button */
+	padding: 10px;
+	margin: 10px 0;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus {
+	border-color: #007BFF; /* Blue border on focus */
+  }
+  
+  input[type="submit"] {
+	padding: 12px 20px;
+	border: none;
+	background-color: #007BFF;
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+  input[type="submit"]:hover {
+	background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .ai-response {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #f4f4f8;
+	border-left: 5px solid #007BFF;
+	font-style: italic;
+	color: #333;
+  }
+  
+  .ai-response strong {
+	color: #007BFF;
+	font-weight: normal;
+  }
+
+  @media (max-width: 600px) {
+	input[type="text"], input[type="submit"] {
+	  width: 100%; /* Full width on smaller screens */
+	  display: block;
+	  margin: 10px 0;
+	}
+  }
+  
+  

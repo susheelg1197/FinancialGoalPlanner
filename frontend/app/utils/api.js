@@ -112,6 +112,22 @@ export const getUserExpenses = async (token) => {
     }
 };
 
+export const getUserExpensesByYear = async (token,year) => {
+    try {
+        const response = await axios.get(`${API_URL}/expenses/year/${year}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Fetch user expenses by year Error:', error.response.data);
+        throw error;
+    }
+};
+
+
 export const getUserFinances = async (token) => {
     try {
         const response = await axios.get(`${API_URL}/finances/by_user`, {
@@ -123,6 +139,36 @@ export const getUserFinances = async (token) => {
         return response.data;
     } catch (error) {
         console.error('Fetch finances by user Error:', error.response.data);
+        throw error;
+    }
+};
+
+export const chat = async (token, message) => {
+    try {
+        const response = await axios.post(`${API_URL}/chat`, message, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Failed to chat:', error.response.data);
+        throw error;
+    }
+};
+
+export const getUserFinancesByYear = async (token,year) => {
+    try {
+        const response = await axios.get(`${API_URL}/finances/year/${year}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Fetch user finances by year Error:', error.response.data);
         throw error;
     }
 };

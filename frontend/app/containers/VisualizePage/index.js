@@ -31,6 +31,8 @@ import YearlyFinancesChart from './YearlyFinancesChart';
 import CombinationChart from './CombinationChart';
 import FinancialGoalChart from './FinancialGoalChart';
 import FinancialGoalParent from './FinancialGoalParent';
+import YearlyExpenditureDashboard from './YearlyExpenditureDashboard';
+import YearlyFinancialDashboard from './YearlyFinancialDashboard';
 const StyledDiv = styled.div`
   padding: 20px;
 `;
@@ -56,18 +58,10 @@ export function VisualizePage() {
     
       <div class="row">
         <div class="column">
-          <div class="heading">
-            <h2>Yearly Expenditure</h2>
-            <YearDropdown/>
-          </div>
-          <YearlyExpenseChart />
+        <YearlyExpenditureDashboard/>
         </div>
         <div class="column">
-          <div class="heading">
-            <h2>Yearly Finances</h2>
-            <YearDropdown/>
-          </div>
-          <YearlyFinancesChart />
+          <YearlyFinancialDashboard/>
         </div>
         <div class="column">
           <h2>Category Expenditure of this month</h2>

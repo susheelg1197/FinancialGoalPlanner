@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import Chart from 'react-apexcharts'; 
 
 function BarChartFinance({ categories, seriesData }) {
+  console.log("seriesData:: ", seriesData)
   const options = {
     chart: {
       id: 'apexchart-bar'
