@@ -4,6 +4,8 @@ from app.extensions import db
 from app.models.finance import Finance
 from app.utils.utils import get_user_id_from_token
 from datetime import datetime
+from sqlalchemy import extract
+
 
 finance_blueprint = Blueprint('finances', __name__)
 
@@ -98,3 +100,20 @@ def get_user_finances():
     
     goals = Finance.query.filter_by(created_by=user_id).all()
     return jsonify([goal.to_dict() for goal in goals]), 200
+
+
+@finance_blueprint.route('/finances/year/<int:year>', methods=['GET'])
+@jwt_required()
+def get_finances_by_year(year):
+    user_id = get_user_id_from_token()
+    if not user_id:
+        return jsonify({'error': 'User not authenticated'}), 401 
+    finances = Finance.query.filter(
+        Finance.created_by == user_id,
+        extract('year', Finance.created_on) == year
+    ).all()
+
+    if finances:
+        return jsonify([expense.to_dict() for expense in finances])
+    else:
+        return jsonify({'message': 'No finances found for this year'}), 404
